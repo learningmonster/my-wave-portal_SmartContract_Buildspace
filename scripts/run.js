@@ -9,12 +9,45 @@ const main = async () => {
 
   await waveContract.getTotalWaves();
 
-  const firstWaveTxn = await waveContract.wave();
+  let firstWaveTxn = await waveContract.wave();
   await firstWaveTxn.wait();
 
   await waveContract.getTotalWaves();
 
-  const secondWaveTxn = await waveContract.connect(randomPerson).wave();
+  let secondWaveTxn = await waveContract.connect(randomPerson).wave();
+  await secondWaveTxn.wait();
+
+  secondWaveTxn = await waveContract.connect(randomPerson).wave();
+  await secondWaveTxn.wait();
+
+  secondWaveTxn = await waveContract.connect(randomPerson).wave();
+  await secondWaveTxn.wait();
+
+  firstWaveTxn = await waveContract.wave();
+  await firstWaveTxn.wait();
+
+  firstWaveTxn = await waveContract.wave();
+  await firstWaveTxn.wait();
+
+  firstWaveTxn = await waveContract.wave();
+  await firstWaveTxn.wait();
+
+  secondWaveTxn = await waveContract.connect(randomPerson).wave();
+  await secondWaveTxn.wait();
+
+  firstWaveTxn = await waveContract.wave();
+  await firstWaveTxn.wait();
+
+  firstWaveTxn = await waveContract.wave();
+  await firstWaveTxn.wait();
+
+  firstWaveTxn = await waveContract.wave();
+  await firstWaveTxn.wait();
+
+  firstWaveTxn = await waveContract.wave();
+  await firstWaveTxn.wait();
+
+  secondWaveTxn = await waveContract.connect(randomPerson).wave();
   await secondWaveTxn.wait();
 
   await waveContract.getTotalWaves();
