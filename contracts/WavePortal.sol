@@ -6,11 +6,17 @@ import "hardhat/console.sol";
 
 contract WavePortal {
     uint256 totalWaves;
+    address payable owner;
 
     /* 
-     *  Custom event to be raised at select points
+     *  Custom event to be raised at select points (such as when a user successfully sends a wave)
      */
     event NewWave(address indexed from, uint256 timestamp, string message);
+
+    /* 
+     *  Custom event to be raised when contract funds withdrawn
+     */
+    event FundsWithdrawn(address indexed from, uint256 timestamp, string message);
 
     /*
      * Created a struct here named Wave.
@@ -32,6 +38,8 @@ contract WavePortal {
     constructor() payable {
         console.log("Yo yo, I am a contract and I am smart.");
         console.log("It's great to be alive!");
+
+        owner = payable(msg.sender);
     }
 
     mapping(address => uint) waveCountsByAddress;
@@ -82,4 +90,18 @@ contract WavePortal {
         console.log("We have %d total waves!", totalWaves);
         return totalWaves;
     }
+
+    function withdrawFunds() public {
+        require(msg.sender == owner, "Only the owner can call this function");
+
+        (bool success, ) = (owner).call{value: address(this).balance}("");
+        require(success, "Failed to withdraw money from contract.");
+
+        /*
+         * Emit an event to indicate that funds were withdrawn
+         */
+        emit FundsWithdrawn(msg.sender, block.timestamp, "Funds Withdrawn");
+
+    }
+
 }

@@ -147,6 +147,17 @@ const main = async () => {
     "Contract balance:",
     hre.ethers.utils.formatEther(contractBalance)
   );
+
+  await waveContract.withdrawFunds();
+
+  /*
+   * Get Contract balance to see what happened!
+   */
+  contractBalance = await hre.ethers.provider.getBalance(waveContract.address);
+  console.log(
+    "Contract balance:",
+    hre.ethers.utils.formatEther(contractBalance)
+  );
 };
 
 const runMain = async () => {
